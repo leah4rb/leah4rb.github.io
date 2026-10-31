@@ -521,11 +521,15 @@ function openSheet(html){$('#sbody').innerHTML=html;$('#sheet').classList.add('o
 function closeSheet(){$('#sheet').classList.remove('on');$('#shade').classList.remove('on');setTimeout(()=>{if(!$('#sheet').classList.contains('on'))$('#sbody').innerHTML=''},400);}
 const ROLE_POST='I wrote the text on the image and the caption.';
 const ROLE_VID='I wrote the script, filmed, edited and wrote the caption.';
-let fio=null;
-function feedObserve(){if(fio)fio.disconnect();fio=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const f=en.target;if(!f.src)f.src=f.dataset.src}}),{root:$('#fscroll'),rootMargin:'900px 0px'});document.querySelectorAll('#fscroll iframe').forEach(f=>fio.observe(f));}
+let fio=null,fvis=null;
+function stopFrame(f){try{f.contentWindow.postMessage({'x-tiktok-player':true,type:'pause'},'*')}catch(e){}f.src=f.dataset.src;f.dataset.seen='';}
+function feedObserve(){if(fio)fio.disconnect();if(fvis)fvis.disconnect();const root=$('#fscroll');
+  fio=new IntersectionObserver(es=>es.forEach(en=>{const f=en.target;if(en.isIntersecting&&!f.getAttribute('src'))f.src=f.dataset.src}),{root,rootMargin:'900px 0px'});
+  fvis=new IntersectionObserver(es=>es.forEach(en=>{const f=en.target;if(en.intersectionRatio>=0.35){f.dataset.seen='1'}else if(f.dataset.seen){stopFrame(f)}}),{root,threshold:[0,0.35]});
+  document.querySelectorAll('#fscroll iframe').forEach(f=>{fio.observe(f);fvis.observe(f)});}
 function openFeed(html,title,sub,tt,idx){const fs=$('#fscroll');fs.className='fscroll'+(tt?' tt':'');fs.innerHTML=html;$('#ftitle').textContent=title;$('#fsub').textContent=sub;$('#feed').classList.add('on');
   requestAnimationFrame(()=>{const it=fs.children[idx];fs.scrollTop=it?it.offsetTop-fs.offsetTop:0;feedObserve();});}
-function closeFeed(){$('#feed').classList.remove('on');setTimeout(()=>{if(!$('#feed').classList.contains('on'))$('#fscroll').innerHTML=''},350)}
+function closeFeed(){document.querySelectorAll('#fscroll iframe').forEach(f=>f.removeAttribute('src'));if(fvis)fvis.disconnect();$('#feed').classList.remove('on');setTimeout(()=>{if(!$('#feed').classList.contains('on'))$('#fscroll').innerHTML=''},350)}
 function openPost(el,i){const list=el==='#g-olx'?OLX:KIRA;const acct=el==='#g-olx'?'olxlebanon':'kirabagslb';
   const html=list.map((p,j)=>{const url=`https://www.instagram.com/${acct}/${p.k}/${p.id}/`;return `<div class="fitem">
     <div class="fh"><div class="av2" style="background:${G[j%G.length]}">${p.em.slice(0,2)}</div><div><b>${p.t}</b><small>@${acct} · ${p.k==='reel'?'Reel':'Post'}</small></div><span class="n">${j+1}/${list.length}</span></div>
