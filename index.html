@@ -493,7 +493,7 @@ function openPost(el,i){const list=el==='#g-olx'?OLX:KIRA,p=list[i];const acct=e
 function openTT(i){const v=TT[i];const url=`https://www.tiktok.com/@olx_lebanon/video/${v.id}`;
   openSheet(`<h3>${v.t}</h3><div class="meta">@olx_lebanon · ▷ ${v.v} views</div>
   <div class="role"><b>My part:</b> script and caption writing, posting and tracking for OLX Lebanon's TikTok.</div>
-  <iframe class="embed" src="https://www.tiktok.com/embed/v2/${v.id}" height="640" loading="lazy" allow="encrypted-media;fullscreen" title="${v.t}"></iframe>
+  <iframe class="embed" src="https://www.tiktok.com/player/v1/${v.id}?music_info=0&description=1&rel=0&native_context_menu=0" height="600" loading="lazy" allow="encrypted-media;fullscreen" title="${v.t}"></iframe>
   <a class="linkbtn" href="${url}" target="_blank" rel="noopener">Watch on TikTok ↗</a>`);}
 function openContact(){openSheet(`<h3>Let's talk 💌</h3><div class="meta">I usually reply within a day.</div><div class="contact">
   <a href="mailto:leaharb54@gmail.com?subject=Hi%20L%C3%A9a%20%E2%80%94%20saw%20your%20portfolio"><i>✉️</i><span>leaharb54@gmail.com<small>Send me an email</small></span></a>
