@@ -462,7 +462,8 @@ const STORIES = [
    `<h2>Certified in</h2><div class="stk"><span class="sticker">📊 Google Analytics</span><span class="sticker">🔍 HubSpot SEO</span></div><h2 style="margin-top:26px">Languages</h2><div class="stk"><span class="sticker">🇱🇧 Arabic · native</span><span class="sticker">🇬🇧 English · fluent</span><span class="sticker">🇫🇷 French · intermediate</span></div>`
  ]},
  {e:'🧳',n:'Freelance',bg:'linear-gradient(170deg,#F6B8CB,#A94069)',s:[
-   `<p style="opacity:.8">Freelance project</p><h2>Kira Bags 🧳</h2><p>A Lebanese luggage brand I handle on Instagram as a freelancer. I script, film and edit the reels and write the captions.</p><a class="cta" href="https://www.instagram.com/kirabagslb/" target="_blank" rel="noopener">See @kirabagslb ↗</a>`
+   `<p style="opacity:.8">Freelance project</p><h2>Kira Bags 🧳</h2><p>A Lebanese luggage brand. I took over their Instagram and renovated the whole page, from the profile to the content to the community.</p><a class="cta" href="https://www.instagram.com/kirabagslb/" target="_blank" rel="noopener">See @kirabagslb ↗</a>`,
+   `<h2>What I did</h2><div class="stk"><span class="sticker">🔄 Full page renovation</span><span class="sticker">⭐ New highlights</span><span class="sticker">🪪 New bio</span><span class="sticker">🔗 Link tree</span><span class="sticker">🎥 Filmed &amp; edited the reels</span><span class="sticker">📲 Every format: reels, posts, carousels &amp; stories</span><span class="sticker">📚 Educational content</span><span class="sticker">🛍️ Promotional content</span><span class="sticker">💬 Replied to customers on WhatsApp, Instagram &amp; Facebook</span></div>`
  ]},
  {e:'💗',n:'Off-duty',bg:'linear-gradient(170deg,#FBCFDC,#D46A8C)',s:[
    `<h2>Off the clock</h2><div class="stk"><span class="sticker">🎤 I sing</span><span class="sticker">🎨 I paint</span><span class="sticker">💗 pink is my personality</span></div><p style="margin-top:22px">Brands I'd study all day:</p><div class="stk"><span class="sticker">Cosmaline</span><span class="sticker">Starbucks</span><span class="sticker">Bank Audi</span></div>`,
@@ -528,7 +529,7 @@ function closeFeed(){$('#feed').classList.remove('on');setTimeout(()=>{if(!$('#f
 function openPost(el,i){const list=el==='#g-olx'?OLX:KIRA;const acct=el==='#g-olx'?'olxlebanon':'kirabagslb';
   const html=list.map((p,j)=>{const url=`https://www.instagram.com/${acct}/${p.k}/${p.id}/`;return `<div class="fitem">
     <div class="fh"><div class="av2" style="background:${G[j%G.length]}">${p.em.slice(0,2)}</div><div><b>${p.t}</b><small>@${acct} · ${p.k==='reel'?'Reel':'Post'}</small></div><span class="n">${j+1}/${list.length}</span></div>
-    <div class="role"><b>My part:</b> ${p.k==='reel'?ROLE_VID:ROLE_POST}</div>
+    <div class="role"><b>My part:</b> ${acct==='kirabagslb'?(p.k==='reel'?'I filmed and edited this reel and posted it.':'I planned and posted this as part of the page renovation.'):(p.k==='reel'?ROLE_VID:ROLE_POST)}</div>
     <iframe class="embed" data-src="https://www.instagram.com/${p.k}/${p.id}/embed/captioned/" height="${p.k==='reel'?620:560}" allowtransparency="true" scrolling="no" title="${p.t}"></iframe>
     <a class="open" href="${url}" target="_blank" rel="noopener">Open on Instagram ↗</a>${j<list.length-1?'<div class="more">Scroll for the next one ↓</div>':''}</div>`}).join('');
   openFeed(html,acct==='olxlebanon'?'OLX Lebanon':'Kira Bags','Scroll to see them all ↓',false,i);}
