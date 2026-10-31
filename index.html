@@ -529,11 +529,10 @@ function closeFeed(){$('#feed').classList.remove('on');setTimeout(()=>{if(!$('#f
 function openPost(el,i){const list=el==='#g-olx'?OLX:KIRA;const acct=el==='#g-olx'?'olxlebanon':'kirabagslb';
   const html=list.map((p,j)=>{const url=`https://www.instagram.com/${acct}/${p.k}/${p.id}/`;return `<div class="fitem">
     <div class="fh"><div class="av2" style="background:${G[j%G.length]}">${p.em.slice(0,2)}</div><div><b>${p.t}</b><small>@${acct} · ${p.k==='reel'?'Reel':'Post'}</small></div><span class="n">${j+1}/${list.length}</span></div>
-    <div class="role"><b>My part:</b> ${acct==='kirabagslb'?(p.k==='reel'?'I filmed and edited this reel and posted it.':'I planned and posted this as part of the page renovation.'):(p.k==='reel'?ROLE_VID:ROLE_POST)}</div>
     <iframe class="embed" data-src="https://www.instagram.com/${p.k}/${p.id}/embed/captioned/" height="${p.k==='reel'?620:560}" allowtransparency="true" scrolling="no" title="${p.t}"></iframe>
     <a class="open" href="${url}" target="_blank" rel="noopener">Open on Instagram ↗</a>${j<list.length-1?'<div class="more">Scroll for the next one ↓</div>':''}</div>`}).join('');
   openFeed(html,acct==='olxlebanon'?'OLX Lebanon':'Kira Bags','Scroll to see them all ↓',false,i);}
-function openTT(i){const html=TT.map((v,j)=>`<div class="fitem"><div class="ttop"><b>My part:</b> ${ROLE_VID}<br>${v.t} · ▷ ${v.v} views</div>
+function openTT(i){const html=TT.map((v,j)=>`<div class="fitem"><div class="ttop">${v.t} · ▷ ${v.v} views</div>
     <iframe data-src="https://www.tiktok.com/player/v1/${v.id}?music_info=0&description=1&rel=0&native_context_menu=0" allow="encrypted-media;fullscreen;autoplay" title="${v.t}"></iframe>
     <div class="tbot"><span>${j+1}/${TT.length}${j<TT.length-1?' · swipe up for the next ↑':''}</span><a href="https://www.tiktok.com/@olx_lebanon/video/${v.id}" target="_blank" rel="noopener">TikTok ↗</a></div></div>`).join('');
   openFeed(html,'TikTok · @olx_lebanon','Swipe up for the next video',true,i);}
