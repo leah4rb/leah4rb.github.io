@@ -157,7 +157,9 @@ a{color:inherit}
 .tl div:before{content:'';position:absolute;left:-23px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff}
 .tl b{display:block;font-size:14px}
 .tl span{font-size:12px;opacity:.85}
-.poll{background:#fff;color:var(--deep);border-radius:18px;padding:14px;margin-top:16px}
+.poll{position:relative;z-index:5;background:#fff;color:var(--deep);border-radius:18px;padding:14px;margin-top:16px}
+.poll button{cursor:pointer;transition:transform .15s}.poll button:active{transform:scale(.97)}
+.poll button.picked{outline:2px solid var(--rose)}
 .poll .q{font-weight:600;font-size:14px;margin-bottom:10px;text-align:center}
 .poll button{display:block;width:100%;position:relative;overflow:hidden;background:var(--p50);border-radius:12px;padding:11px 14px;margin-bottom:8px;font-weight:600;font-size:13px;text-align:left}
 .poll button i{position:absolute;inset:0;width:0;background:var(--p100);transition:width .8s}
@@ -509,8 +511,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#feed').classLis
 function vote(btn,correct,always){const box=btn.parentElement;if(box.dataset.v)return;box.dataset.v=1;paused=true;
   const btns=[...box.querySelectorAll('button')];const pct=btns.length===2?[52,48]:[9,23,68];
   btns.forEach((b,i)=>{b.querySelector('i').style.width=pct[i]+'%';b.querySelector('em').textContent=pct[i]+'%'});
+  btn.classList.add('picked');if(!always){btns[btns.length-1].querySelector('span').textContent+=' ✓';}
   const right=always||correct;toast(always?'Yay! Tap ✈️ to message me 💌':(right?'Correct! 171K conversions 🎯':'Higher! It was 171K 🎯'));
-  setTimeout(()=>paused=false,1800);}
+  setTimeout(()=>paused=false,3500);}
 
 /* ---------- sheets ---------- */
 function openSheet(html){$('#sbody').innerHTML=html;$('#sheet').classList.add('on');$('#shade').classList.add('on');$('#sbody').scrollTop=0;}
